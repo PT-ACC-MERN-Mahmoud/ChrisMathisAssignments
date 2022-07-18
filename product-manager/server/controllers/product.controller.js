@@ -17,5 +17,21 @@ module.exports = {
         Product.findOne({_id: req.params.id})
             .then((oneProduct) =>{res.json(oneProduct);})
             .catch((err) => console.log(err));
+    },
+
+    editProduct: (req, res) => {
+        Product.findByIdAndUpdate({_id: req.params.id},
+            req.body,
+            {new:true, runValidators: true}
+            )
+            .then((editedProduct) => {res.json(editedProduct);})
+            .catch((err) => console.log(err));
+    },
+
+    removeProduct: (req, res) => {
+        Product.deleteOne({_id: req.params.id})
+        .then((removedProduct) => {res.json(removedProduct);})
+        .catch((err) => console.log(err));
     }
-}
+
+};
